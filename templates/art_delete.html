@@ -1,0 +1,17 @@
+<!--Наследование шаблона от default.html -->
+{% extends 'newsagency/default.html'%}
+
+<!-- Название страницы -->
+{% block title %}
+    Редактирование новости
+{% endblock title %}
+
+{% block content %}
+    <h2>Удаление статьи</h2>
+<hr>
+<form action="" method="post">
+    {% csrf_token%}
+    <p>Согласны удалить {{object.headline}}</p>
+    <input class="mt-3 btn-primary" type="submit" value="Удалить">
+</form>
+{% endblock content %}

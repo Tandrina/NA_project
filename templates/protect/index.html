@@ -1,0 +1,23 @@
+{% extends 'newsagency/default.html'%}
+
+{% block title %}
+<p> User profile</p>
+{% endblock title %}
+
+{% block content %}
+<h2>Профиль пользователя</h2>
+<h3>{{request.user.username}}</h3>
+<hr>
+<p>Никнейм: {{request.user.username}}</p>
+<p>Имя: {{request.user.first_name}}</p>
+<p>Фамилия: {{request.user.last_name}}</p>
+<p>e-mail: {{request.user.email}}</p>
+<br>
+<button><a href="sign/logout/">Выход из аккаунта</a> </button>
+<br>
+<br>
+{% if is_not_authors %}
+<button> <a href="sign/upgrade/"> Стать автором</a> </button>
+{% endif %}
+
+{% endblock content %}

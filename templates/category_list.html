@@ -1,0 +1,69 @@
+<!--Наследование шаблона от default.html -->
+{% extends 'newsagency/default.html'%}
+{% load custom_filters %}
+{% load custom_tags %}
+
+<!-- Название страницы -->
+{% block title %}
+    Articles
+{% endblock title %}
+
+{% block content %}
+    <h2 style="text-align: center">Новости {{categories.name}}</h2>
+    <h5 style="text-align: center">{% current_time %}</h5>
+<br>
+<!--        {% if 'is_not_subscriber' %}-->
+<!--        <button><a href="sign/subscribe/">Подпишись на рассылку</a></button>-->
+<!--        {% endif %}-->
+
+    {% if posts %}
+        <div style="text-align: center;">
+            <table style="display: inline-block; font-size: 14px;">
+                <tr>
+                    <td style="text-align: center;  font-weight: bold;">Заголовок</td>
+                    <td style="text-align: center;  font-weight: bold;">Категория</td>
+                    <td style="text-align: center;  font-weight: bold;">Дата публикации</td>
+                    <td style="text-align: center;  font-weight: bold;">Текст</td>
+
+
+                </tr>
+                {% for post in category_news %}
+                    <tr>
+                        <td style="text-align: left;"><a href="{% url 'post_detail' post.id %}">{{ post.headline|censor }}</a></td>
+                        <td style="text-align: center;"> {% for cat in post.postCategory.all %}
+                                <a href="{% url 'category_list' cat.id %}">{{ cat.name }}</a>
+                                {% endfor %}
+                        </td>
+                        <td style="text-align: center;">{{ post.dateAdd|date:'d M Y' }}</td>
+                        <td style="text-align: left;">{{ post.text|truncatechars:20|censor }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <h2>Пока новостей нет</h2>
+    {% endif %}
+
+    {# Добавлена пагинация #}
+{# Блок предыдущих страниц #}
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+            ...
+            <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+    {% endif %}
+
+        {# блок текущей страницы #}
+        {{ page_obj.number }}
+
+        {# блок следующих страниц #}
+        {% if page_obj.has_next %}
+            <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+            {% if paginator.num_pages != page_obj.next_page_number %}
+                ...
+                <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+        {% endif %}
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+<!--Наследование шаблона от default.html -->
+{% extends 'newsagency/default.html'%}
+
+<!-- Название страницы -->
+{% block title %}
+    Создание новости
+{% endblock title %}
+
+{% block content %}
+<h2>Создать новость</h2>
+<hr>
+<form action="" method="post">
+    {% csrf_token%}
+    {{form.as_p}}
+    <input class="mt-3 btn-primary" type="submit" value="Добавить">
+</form>
+{% endblock content %}

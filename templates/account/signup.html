@@ -1,0 +1,15 @@
+{% extends 'newsagency/default.html'%}
+
+{% block title%}
+
+{% endblock title %}
+{% block content%}
+<h3>Регистрация пользователя</h3>
+<br>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <br>
+    <input type="submit" value="Отправить данные">
+</form>
+{% endblock content%}
