@@ -26,14 +26,26 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+{#                {% for cat in post.PostCategory.all %}#}
+{#                    <li class="nav-item active">#}
+{#                        <a class="nav-link" href="{% url 'category_list' cat.id %}">{{ cat.name }}</a></li>#}
+{#                {% endfor %}#}
+
+
                 <li class="nav-item active">
-                    <a class="nav-link" href="/posts/">Новости</a>
+                    <a class="nav-link" href="http://127.0.0.1:8000/posts/category/1/">Город</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/about/">О нас</a>
+                    <a class="nav-link" href="http://127.0.0.1:8000/posts/category/4/">Мероприятия</a>
+                </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/posts/category/2/">Транспорт</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/posts/search/">Поиск</a>
+                    <a class="nav-link" href="http://127.0.0.1:8000/posts/category/3/">Природа</a>
+                </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/posts/category/5/">Забавное</a>
                 </li>
             </ul>
         </div>

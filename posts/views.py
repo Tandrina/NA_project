@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from django.db.models.signals import post_save
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+# from django.db.models.signals import post_save
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -176,3 +177,13 @@ class CategoryView(ListView):
         context['is_not_subscriber'] = self.request.user not in self.postCategory.subscribe.all()
         context['Category'] = self.postCategory
         return context
+
+
+@login_required
+def subscribe_cat(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribe.add(user)
+
+    message = f'Вы подписались на рассылку новостей по категории {category}'
+    return render(request, 'sign/subscribe.html', {'category': category, 'message': message})

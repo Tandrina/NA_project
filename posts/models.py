@@ -54,6 +54,7 @@ class Post(models.Model):
     dateAdd = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     headline = models.CharField(max_length=128, verbose_name='Заголовок')
     text = models.TextField(null=False, verbose_name='Текст статьи')
+    picture = models.ImageField(upload_to='images/')
     rate = models.SmallIntegerField(default=0, verbose_name='рейтинг')
 
     creator = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор')

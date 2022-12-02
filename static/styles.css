@@ -4220,6 +4220,9 @@ textarea.form-control-lg {
 
 .nav {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     padding-left: 0;
     margin-bottom: 0;
@@ -5508,6 +5511,7 @@ textarea.form-control-lg {
     padding-left: 0;
     margin-bottom: 0;
     border-radius: 0.25rem;
+    text-align: left;
 }
 
 .list-group-numbered {
@@ -5760,6 +5764,7 @@ textarea.form-control-lg {
 
 .list-group-flush {
     border-radius: 0;
+    text-align: left;
 }
 
 .list-group-flush > .list-group-item {
