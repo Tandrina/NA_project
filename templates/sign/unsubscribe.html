@@ -1,0 +1,9 @@
+{% extends 'newsagency/default.html' %}
+{% block content %}
+    <div>
+    <img src="https://i.pinimg.com/originals/5a/4a/75/5a4a750498babf476fe5f4b0ad25e375.jpg" alt="Отписалась" width="200px">
+    <br>
+    <br>
+    </div>
+    <p>Вы отписались от материалов категории: <a href="{% url 'category_list' category.id %}"> {{category}}</a></p>
+{% endblock content %}

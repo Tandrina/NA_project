@@ -8,7 +8,8 @@ class NewsForm(ModelForm):
         fields = [
             'headline',
             'text',
-            'creator'
+            'creator',
+            'postCategory',
         ]
 
 

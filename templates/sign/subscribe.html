@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'newsagency/default.html' %}
+{% block content %}
+    <div>
+    <h3>Подписка</h3>
+    </div>
+    <p>Вы подписаны на статьи из категории - <a href="{% url 'category_list' category.id %}"> {{category}}</a></p>
+    <small>Благодаря этому теперь вы будете получать еженедельный обзор новых материалов на ваш email.</small>
+    <br>
+    <br>
+    <br>
 
-</body>
-</html>
+    {% if 'is_subscriber' %}
+        <button class="btn"><a href="{% url 'unsubscribe' category.id %} ">Отписаться от рассылки</a></button>
+    {% endif %}
+{% endblock content %}

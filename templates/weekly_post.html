@@ -5,11 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>New post email</title>
+    <title>Weekly news</title>
 </head>
 <body>
 <h2>Добрый день!</h2>
-<p>Добавлена новая <a href="{{ link }}">статья</a> </p>.
-<p>{{ text }}</p>
+<p>Представляем Вам выборку статей за неделю. </p>.
+<ul>
+    {% for p in post %}
+        <li><a href="{{ link }}{{ p.get_absolute_url }}">{{ p.headline }}</a> </li>
+
+    {% endfor %}
+</ul>
 </body>
 </html>

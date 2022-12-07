@@ -17,8 +17,9 @@
 <br><hr>
 
     {% if 'is_not_subscriber' %}
-        <button class="btn"><a href=" ">Подпишись на рассылку</a></button>
+        <button class="btn"><a href="{% url 'subscribe' Category.id %} ">Подпишись на рассылку</a></button>
     {% endif %}
+
 
     {% if category_news %}
         <div style="text-align: left;">
@@ -39,27 +40,7 @@
         {% endfor %}
         </ul>
         </div>
-        {#        <div style="text-align: center;">#}
-{#            <table style="display: inline-block; font-size: 14px;">#}
-{#                <tr>#}
-{#                    <td style="text-align: center;  font-weight: bold;">Заголовок</td>#}
-{#                    <td style="text-align: center;  font-weight: bold;">Категория</td>#}
-{#                    <td style="text-align: center;  font-weight: bold;">Дата публикации</td>#}
-{#                    <td style="text-align: center;  font-weight: bold;">Текст</td>#}
-{#                </tr>#}
-{#                {% for post in category_news %}#}
-{#                    <tr>#}
-{#                        <td style="text-align: left;"><a href="{% url 'post_detail' post.id %}">{{ post.headline|censor }}</a></td>#}
-{#                        <td style="text-align: center;"> {% for cat in post.postCategory.all %}#}
-{#                                <a href="{% url 'category_list' cat.id %}">{{ cat.name }}</a>#}
-{#                                {% endfor %}#}
-{#                        </td>#}
-{#                        <td style="text-align: center;">{{ post.dateAdd|date:'d M Y' }}</td>#}
-{#                        <td style="text-align: left;">{{ post.text|truncatechars:20|censor }}</td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#            </table>#}
-{#        </div>#}
+
     {% else %}
         <h2>Пока новостей нет</h2>
     {% endif %}

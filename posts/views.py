@@ -1,33 +1,16 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
-# from django.db.models.signals import post_save
 from django.shortcuts import get_object_or_404, render
-from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.mail import EmailMultiAlternatives
+
 
 from .models import Category
 
 from .filters import PostFilter
 from .forms import *
-
-
-# def make_news(sender, instance, created, **kwargs):
-#     html_content = render_to_string(
-#         'news_email',
-#         {'news': post_save}
-#     )
-#     subscribers = Category.objects.filter(subscribe=True)
-#
-#     msg = EmailMultiAlternatives(
-#         subject=f'Новая статья: {post_save.headline}',
-#         body=post_save,
-#         from_email='',
-#         to=self.request.user in self.postCategory.subscribe.all()
-#     )
 
 
 class PostsLIst(ListView):
@@ -93,20 +76,6 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.articleType = 'NW'
-
-        html_content = render_to_string('news_email.html',
-                                        {
-                                            'post': post,
-                                        })
-        msg = EmailMultiAlternatives(
-            subject=f'{post.title}',
-            body=post.text,
-            from_email='tandrin.mail@yandex.ru',
-            to=['kudashova@inbox.ru']
-        )
-
-        msg.attach_alternative(html_content, 'text/html')
-        msg.send()
         return super().form_valid(form)
 
 
@@ -175,6 +144,7 @@ class CategoryView(ListView):
         # К словарю добавляем переменные
 
         context['is_not_subscriber'] = self.request.user not in self.postCategory.subscribe.all()
+        context['is_subscriber'] = self.request.user in self.postCategory.subscribe.all()
         context['Category'] = self.postCategory
         return context
 
@@ -184,6 +154,12 @@ def subscribe_cat(request, pk):
     user = request.user
     category = Category.objects.get(id=pk)
     category.subscribe.add(user)
+    return render(request, 'sign/subscribe.html', {'category': category})
 
-    message = f'Вы подписались на рассылку новостей по категории {category}'
-    return render(request, 'sign/subscribe.html', {'category': category, 'message': message})
+
+@login_required
+def unsubscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribe.exclude(username=user.username)
+    return render(request, 'sign/unsubscribe.html', {'category': category})

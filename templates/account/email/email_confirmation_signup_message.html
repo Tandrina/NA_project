@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration message</title>
+</head>
+<body>
+{% load account %} <!- Тег, позволяющий получить ссылку на подтверждение -->
+<h3>Уважаемый {{ user.username }}!</h3>
+<h4>Благодарим Вас за регистрацию на нашем портале.</h4>
+<h4>Для подтверждения аккаунта пожалуйста перейдите по <a href="{{ activate_url }}">ссылке</a>. </h4>
+</body>
+</html>
